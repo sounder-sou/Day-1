@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Complete Nmap & Wireshark Analysis Report</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    line-height: 1.6;
+}
+h1,h2{
+    color:#2c3e50;
+}
+table{
+    border-collapse: collapse;
+    width:100%;
+    margin:10px 0;
+}
+th,td{
+    border:1px solid #333;
+    padding:8px;
+}
+img{
+    max-width:100%;
+    border:1px solid #999;
+    margin:15px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Nmap Network Scan and Wireshark Analysis Report</h1>
+
+<h2>1. Local IP Range</h2>
+
+<p><strong>Network Scanned:</strong> 192.168.1.0/24</p>
+
+<pre>
+nmap -sS 192.168.1.0/24
+</pre>
+
+<h2>2. Hosts Discovered</h2>
+
+<table>
+<tr>
+    <th>IP Address</th>
+    <th>Status</th>
+</tr>
+<tr>
+    <td>192.168.1.1</td>
+    <td>Up</td>
+</tr>
+<tr>
+    <td>192.168.1.2</td>
+    <td>Up</td>
+</tr>
+<tr>
+    <td>192.168.1.6</td>
+    <td>Up</td>
+</tr>
+<tr>
+    <td>192.168.1.8</td>
+    <td>Up</td>
+</tr>
+</table>
+
+<p><strong>Total Hosts Up:</strong> 4</p>
+
+<h2>3. Open Ports Found</h2>
+
+<h3>Host: 192.168.1.1</h3>
+
+<table>
+<tr>
+    <th>Port</th>
+    <th>Service</th>
+    <th>State</th>
+</tr>
+<tr>
+    <td>53</td>
+    <td>DNS</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>80</td>
+    <td>HTTP</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>443</td>
+    <td>HTTPS</td>
+    <td>Open</td>
+</tr>
+</table>
+
+<p><strong>Filtered Ports:</strong></p>
+<ul>
+    <li>21 (FTP)</li>
+    <li>22 (SSH)</li>
+    <li>23 (Telnet)</li>
+    <li>139 (NetBIOS)</li>
+    <li>161 (SNMP)</li>
+    <li>445 (Microsoft-DS)</li>
+    <li>3517</li>
+    <li>8082</li>
+</ul>
+
+<h3>Host: 192.168.1.2</h3>
+<p>No open ports detected.</p>
+
+<h3>Host: 192.168.1.6</h3>
+
+<table>
+<tr>
+    <th>Port</th>
+    <th>Service</th>
+    <th>State</th>
+</tr>
+<tr>
+    <td>7</td>
+    <td>Echo</td>
+    <td>Filtered</td>
+</tr>
+</table>
+
+<h3>Host: 192.168.1.8</h3>
+
+<table>
+<tr>
+    <th>Port</th>
+    <th>Service</th>
+    <th>State</th>
+</tr>
+<tr>
+    <td>80</td>
+    <td>HTTP</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>135</td>
+    <td>MSRPC</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>139</td>
+    <td>NetBIOS-SSN</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>445</td>
+    <td>Microsoft-DS (SMB)</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>5357</td>
+    <td>WSDAPI</td>
+    <td>Open</td>
+</tr>
+<tr>
+    <td>7070</td>
+    <td>RealServer</td>
+    <td>Open</td>
+</tr>
+</table>
+
+<h2>4. Common Services</h2>
+
+<table>
+<tr>
+    <th>Port</th>
+    <th>Service</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>53</td>
+    <td>DNS</td>
+    <td>Domain Name Resolution</td>
+</tr>
+<tr>
+    <td>80</td>
+    <td>HTTP</td>
+    <td>Web Server</td>
+</tr>
+<tr>
+    <td>443</td>
+    <td>HTTPS</td>
+    <td>Secure Web Server</td>
+</tr>
+<tr>
+    <td>135</td>
+    <td>MSRPC</td>
+    <td>Windows Remote Procedure Calls</td>
+</tr>
+<tr>
+    <td>139</td>
+    <td>NetBIOS</td>
+    <td>Windows File/Printer Sharing</td>
+</tr>
+<tr>
+    <td>445</td>
+    <td>SMB</td>
+    <td>Windows File Sharing</td>
+</tr>
+<tr>
+    <td>5357</td>
+    <td>WSDAPI</td>
+    <td>Web Services for Devices</td>
+</tr>
+<tr>
+    <td>7070</td>
+    <td>RealServer</td>
+    <td>Streaming/Media Service</td>
+</tr>
+</table>
+
+<h2>5. Security Risk Analysis</h2>
+
+<ol>
+<li>
+<strong>Port 80 (HTTP)</strong>
+<ul>
+<li>Data transmitted without encryption.</li>
+<li>Vulnerable to packet sniffing and Man-in-the-Middle attacks.</li>
+</ul>
+</li>
+
+<li>
+<strong>Port 445 (SMB)</strong>
+<ul>
+<li>Frequently targeted by ransomware and worms.</li>
+<li>Should be restricted to trusted networks.</li>
+</ul>
+</li>
+
+<li>
+<strong>Port 139 (NetBIOS)</strong>
+<ul>
+<li>Can reveal shared resources and system information.</li>
+<li>Often disabled in modern secure environments.</li>
+</ul>
+</li>
+
+<li>
+<strong>Port 135 (MSRPC)</strong>
+<ul>
+<li>May expose Windows services to remote enumeration.</li>
+<li>Should not be exposed to untrusted networks.</li>
+</ul>
+</li>
+
+<li>
+<strong>Port 53 (DNS)</strong>
+<ul>
+<li>If misconfigured, can be used for DNS amplification attacks.</li>
+</ul>
+</li>
+
+<li>
+<strong>Port 7070</strong>
+<ul>
+<li>Verify whether this service is required.</li>
+<li>Unnecessary services increase attack surface.</li>
+</ul>
+</li>
+</ol>
+
+<h2>6. Wireshark Analysis</h2>
+
+<p><strong>Filters Used:</strong></p>
+
+<ul>
+<li>tcp.flags.syn == 1</li>
+<li>ip.addr == 192.168.1.1</li>
+<li>tcp.flags.syn == 1 && tcp.flags.ack == 1</li>
+<li>tcp.flags.reset == 1</li>
+</ul>
+
+<h3>Screenshot 1 – SYN Packets</h3>
+<img src="Screenshot 2026-05-30 140258.png" alt="SYN Packets">
+
+<h3>Screenshot 2 – Traffic for Host 192.168.1.1</h3>
+<img src="Screenshot 2026-05-30 140513.png" alt="Host Traffic">
+
+<h3>Screenshot 3 – SYN ACK Responses</h3>
+<img src="Screenshot 2026-05-30 140716.png" alt="SYN ACK">
+
+<h3>Screenshot 4 – RST Responses</h3>
+<img src="Screenshot 2026-05-30 140926.png" alt="RST Responses">
+
+<h2>Wireshark Observations</h2>
+
+<ul>
+<li>SYN packets were sent by Nmap to identify open ports.</li>
+<li>SYN-ACK responses were received from open ports.</li>
+<li>RST-ACK responses were received from closed ports.</li>
+<li>Some ports appeared filtered and produced no response.</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>
+A TCP SYN scan was performed on the subnet
+<strong>192.168.1.0/24</strong> using Nmap.
+Four active hosts were identified.
+Open services including DNS, HTTP, HTTPS, MSRPC,
+NetBIOS, SMB, WSDAPI, and RealServer were discovered.
+Wireshark packet analysis confirmed SYN packets,
+SYN-ACK responses from open ports, and RST responses
+from closed ports. The scan results provide an overview
+of exposed services and potential security risks that
+should be reviewed and mitigated where necessary.
+</p>
+
+</body>
+</html>
